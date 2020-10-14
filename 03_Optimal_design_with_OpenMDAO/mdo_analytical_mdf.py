@@ -145,3 +145,7 @@ print('g1 :',prob['g1'])
 print('g2 :',prob['g2'])
 print('minumum objective')
 print('obj :',prob['obj'][0])
+
+# Part 9: Generate N2 diagram
+from openmdao.api import n2
+n2(prob)
