@@ -95,3 +95,7 @@ print(prob.get_val('parab.f_xy'))
 # location of the minimum
 print(prob.get_val('x'))
 print(prob.get_val('y'))
+
+# Part 9: Generate N2 diagram
+from openmdao.api import n2
+n2(prob)
