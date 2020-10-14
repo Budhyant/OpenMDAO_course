@@ -133,3 +133,7 @@ print('con1=',prob['con1'])
 print('con2=',prob['con2'])
 print('minumum objective')
 print('f=',prob['obj'])
+
+# Part 9: Generate N2 diagram
+from openmdao.api import n2
+n2(prob)
