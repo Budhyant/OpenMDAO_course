@@ -162,3 +162,7 @@ print('\nminumum objective and constraints')
 print('obj :',prob.get_val('obj')[0])
 print('con1 :',prob.get_val('con1'))
 print('con2 :',prob.get_val('con2'))
+
+# Part 9: Generate N2 diagram
+from openmdao.api import n2
+n2(prob)
