@@ -63,39 +63,38 @@ if __name__ == "__main__":
     print('x =',prob['parab_comp.x'])
     print('y =',prob['parab_comp.y'])
     print('f_xy =', prob.get_val('parab_comp.f_xy'))
+    print('\n----------------\n')
     
 
-# Part 8: MDO
-# build the model
+# Part 8: Build the model for optimization
 prob = om.Problem()
 prob.model.add_subsystem('parab', Paraboloid(), promotes_inputs=['x', 'y'])
 
-
-# Design variables 'x' and 'y' span components, so we need to provide a common initial
-# value for them.
+# Part 9: Provide initial values to x and y
 prob.model.set_input_defaults('x', 3.0)
 prob.model.set_input_defaults('y', -4.0)
 
-# setup the optimization
+# Part 10: Setup the optimizer
 prob.driver = om.ScipyOptimizeDriver()
 prob.driver.options['optimizer'] = 'COBYLA'
 
+# Part 11: Provide bounds and objective function
 prob.model.add_design_var('x', lower=-50, upper=50)
 prob.model.add_design_var('y', lower=-50, upper=50)
 prob.model.add_objective('parab.f_xy')
 
 
-
+# Part 12: Setup the problem and run
 prob.setup()
 prob.run_driver()
 
+# Part 13: Print the results
 # minimum value
-print(prob.get_val('parab.f_xy'))
-
+print('f_xy=', prob.get_val('parab.f_xy'))
 # location of the minimum
-print(prob.get_val('x'))
-print(prob.get_val('y'))
+print('x=', prob.get_val('x'))
+print('y=', prob.get_val('y'))
 
-# Part 9: Generate N2 diagram
+# Part 14: Generate N2 diagram
 from openmdao.api import n2
 n2(prob)
