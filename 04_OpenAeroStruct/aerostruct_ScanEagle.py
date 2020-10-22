@@ -227,8 +227,7 @@ print('wing.thickness_cp',prob['wing.thickness_cp'])
 print('wing.sweep',prob['wing.sweep'])
 print('wing.taper',prob['wing.taper'])
 print('alpha',prob['alpha'])
-
-print('wing.structural_mass',prob['wing.structural_mass'])  #[0.36796125]
+print('wing.structural_mass',prob['wing.structural_mass'])  
 
 print('AS_point_0.fuelburn',prob['AS_point_0.fuelburn'])
 
