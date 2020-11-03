@@ -71,7 +71,7 @@ print('\n----------------\n')
 # Part 8: Build the model for optimization
 prob = om.Problem()
 prob.model.add_subsystem('parab', Paraboloid(), promotes_inputs=['x', 'y'])
-prob.model.add_subsystem('const', om.ExecComp('g = x + y'), promotes_inputs=['x', 'y'])
+prob.model.add_subsystem('const', om.ExecComp('g = x + y - 2'), promotes_inputs=['x', 'y'])
 
 # Part 9: Provide initial values to x and y
 prob.model.set_input_defaults('x', 3.0)
@@ -88,7 +88,7 @@ prob.model.add_design_var('y', lower=-10, upper=10)
 
 # to add the objective and constraint to the model
 prob.model.add_objective('parab.f_xy')
-prob.model.add_constraint('const.g', upper=2)
+prob.model.add_constraint('const.g', upper=0)
 
 # Part 12: Setup the problem and run
 prob.setup()
@@ -134,17 +134,16 @@ for i in range(n):
 csfont = {'fontname':'times new roman','fontsize':20}
 fig1 = plt.figure(figsize=(7,6),dpi=150)
 cs = plt.contour(xv, yv, f, 20)
-# c1 = plt.contour(xv, yv, f,10)
 plt.clabel(cs, inline=True, fontsize=10,fmt='%1.1f')
-contours = plt.contour(xv, yv, c, [0,2,4], colors='r')
-plt.scatter(x_opt,y_opt,s=70, c='c',)
-# contours = plt.contour(x1v, x3v, ns, [5,20, 40, 60], colors='k')
+contours = plt.contour(xv, yv, c, [0], colors='r')
 plt.clabel(contours, inline=True, fontsize=14,fmt='g=%1.1f')
+contours_hash = plt.contour(xv, yv, c, [0.3], colors='r',alpha=0.2, linewidths=10)
+plt.scatter(x_opt,y_opt,s=70, c='c',label ='optimum' )
 plt.ylabel('y',**csfont)
 plt.xlabel('x',**csfont)
 plt.xticks(fontsize=16 )
 plt.yticks(fontsize=16 )
 fig1.tight_layout()
-#plt.legend()
+plt.legend(fontsize=16)
 fig1.savefig('single_D_trade_anlyt.png', dpi=400)
 plt.show()
